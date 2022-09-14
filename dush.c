@@ -17,19 +17,21 @@ int main()
 		exit(1);
 	}
 
-	printf("> ");
-	getline(&inputString, &bufsize, stdin);
 	while (1)
 	{
+		// user input
+		printf("> ");
+		getline(&inputString, &bufsize, stdin);
+
 		if (strcmp(inputString, exitString) != 0)
 		{
 			// call exit system call
 			printf("Exited");
 			break;
 		}
+
+		// data handling
 		printf("You typed: %s\n", inputString);
-		printf("> ");
-		getline(&inputString, &bufsize, stdin);
 	}
 	return 0;
 }
