@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"*.py": "python",
+		"*.js": "javascript",
+		"*.csv": "csv",
+		"*.rules": "firerules",
+		"*.s": "code-text-binary",
+		"stdio.h": "c"
+	}
+}
