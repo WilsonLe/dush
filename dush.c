@@ -36,17 +36,16 @@ int main()
 
 		// start edit from here
 
-		// data validation (white spaces, tabs)
+		// data validation (white spaces, tabs): Minh & Khoi (save for last, for now work without validation)
 
 		// check parallel symbol, fit test cases' features
-		// string[] list of commands with arguments parseParallelSymbol(inputString)
+		// string[] list of commands with arguments parseParallelSymbol(inputString): Khoi
 
 		// check redirection symbol, fit test cases' features
-
 		// for each command with argument
-		// [command, output path string] parseRedirectionSymbol(command with argument)
+		// [command, output path string] parseRedirectionSymbol(command with argument): Minh
 
-		// handleBuiltInCommands(inputString, path)
+		// handleBuiltInCommands(inputString, path): Khoi
 
 		if (strcmp(inputString, exitString) != 0)
 		{
@@ -57,11 +56,9 @@ int main()
 
 		// any command that made it here is not a built in command
 
-		// string programPath = pathParser()
+		// string programPath = pathParser(): Minh
 
-		// exec on the program path
-
-		// data handling
+		// exec on the program path: Khoi
 		printf("You typed: %s\n", inputString);
 	}
 
