@@ -19,13 +19,20 @@ void setupPath(char ***path, const int MAX_PATH, const int MAX_PATH_CHAR);
 void teardownPath(char ***path, const int MAX_PATH);
 
 /**
+ * @brief inject default values to path
+ *
+ * @param path path to be injected
+ */
+void injectDefaultPath(char ***path, int *numPath);
+
+/**
  * @brief setup program before running
  *
  * @param path variable pointer
  * @param MAX_PATH max number of path
  * @param MAX_PATH_CHAR max number of char in a path
  */
-void setup(char ***path, const int MAX_PATH, const int MAX_PATH_CHAR);
+void setup(char ***path, const int MAX_PATH, const int MAX_PATH_CHAR, int *numPath);
 
 /**
  * @brief teardown program after running

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 void setupPath(char ***path, const int MAX_PATH, const int MAX_PATH_CHAR)
 {
@@ -19,9 +20,16 @@ void teardownPath(char ***path, const int MAX_PATH)
 	free(*path);
 };
 
-void setup(char ***path, const int MAX_PATH, const int MAX_PATH_CHAR)
+void injectDefaultPath(char ***path, int *numPath)
+{
+	*numPath = 1;
+	(*path)[0] = strcat((*path)[0], "/bin/");
+}
+
+void setup(char ***path, const int MAX_PATH, const int MAX_PATH_CHAR, int *numPath)
 {
 	setupPath(path, MAX_PATH, MAX_PATH_CHAR);
+	injectDefaultPath(path, numPath);
 };
 
 void teardown(char ***path, const int MAX_PATH)

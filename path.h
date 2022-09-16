@@ -7,6 +7,6 @@
  * @param path list of directory to look for input program
  * @param program name of program
  */
-char *parsePath(char **path, char *program);
+char *parsePath(char **path, char *program, int numPath, const int MAX_PATH_CHAR, const int MAX_INPUT_CHAR);
 
 #endif

@@ -5,6 +5,8 @@
 		"*.csv": "csv",
 		"*.rules": "firerules",
 		"*.s": "code-text-binary",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"validator.h": "c",
+		"parser.h": "c"
 	}
 }
