@@ -1,38 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "bootstrap.h"
+#include "path.h"
 
 // if there is user input parsing error, call this function then call continue in while loop
-void printError() {}
+void printError(){};
 
 // if user called programs throw error, dush just need to call continue
 
 int main()
 {
+	// setbuf(stdout, NULL);
 	int hasError = 0;
 
-	char *inputString;
 	char *exitString = "exit";
+
 	const int MAX_PATH = 256;
 	const int MAX_PATH_CHAR = 256;
-	char path[MAX_PATH][MAX_PATH_CHAR];
+	size_t MAX_INPUT_CHAR = 256;
+	char **path;
 
-	size_t bufsize = __INT_MAX__;
-	size_t characters;
+	char *inputString = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 
-	inputString = (char *)malloc(bufsize * sizeof(char));
-
-	if (inputString == NULL)
-	{
-		perror("Unable to allocate buffer");
-		exit(1);
-	}
+	setup(&path, MAX_PATH, MAX_PATH_CHAR);
 
 	while (1)
 	{
 		// user input
 		printf("> ");
-		getline(&inputString, &bufsize, stdin);
+		getline(&inputString, &MAX_INPUT_CHAR, stdin);
 
 		// start edit from here
 
@@ -47,20 +44,15 @@ int main()
 
 		// handleBuiltInCommands(inputString, path): Khoi
 
-		if (strcmp(inputString, exitString) != 0)
-		{
-			// call exit system call
-			printf("Exited");
-			break;
-		}
-
 		// any command that made it here is not a built in command
 
 		// string programPath = pathParser(): Minh
+		char *programPath = parsePath(path, inputString);
 
 		// exec on the program path: Khoi
-		printf("You typed: %s\n", inputString);
+		printf("path: %s\n", programPath);
 	}
 
+	teardown(&path, MAX_PATH);
 	return 0;
-}
+};

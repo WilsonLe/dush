@@ -1,2 +1,2 @@
 main:
-	gcc dush.c -o dush
+	gcc dush.c bootstrap.c path.c -o dush
