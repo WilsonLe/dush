@@ -23,7 +23,7 @@ void teardownPath(char ***path, const int MAX_PATH)
 void injectDefaultPath(char ***path, int *numPath)
 {
 	*numPath = 1;
-	(*path)[0] = strcat((*path)[0], "/bin/");
+	strcpy((*path)[0], "/bin/");
 }
 
 void setup(char ***path, const int MAX_PATH, const int MAX_PATH_CHAR, int *numPath)
