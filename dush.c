@@ -20,6 +20,8 @@ int main()
 
 	const int MAX_PATH = 256;
 	const int MAX_PATH_CHAR = 6;
+	const int MAX_NUM_ARG = 100;
+	const int MAX_ARG_LEN = 256;
 	size_t MAX_INPUT_CHAR = 6;
 
 	int numPath = 0;
@@ -48,12 +50,14 @@ int main()
 		// [command, output path string] parseRedirectionSymbol(command with argument): Minh
 
 		// handleBuiltInCommands(inputString, path): Khoi
+		void handleBuiltInCommands(inputString, path, MAX_PATH, MAX_PATH_CHAR);
 
 		// any command that made it here is not a built in command
 
 		// string programPath = pathParser(): Minh
 		char *programPath = parsePath(path, parsedInputString, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
 		// exec on the program path: Khoi
+		void executeCommand(programPath, inputString, MAX_NUM_ARG);
 		printf("executing: %s\n", programPath);
 	}
 
