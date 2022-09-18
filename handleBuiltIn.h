@@ -8,6 +8,6 @@
  * @param path all executable path
  * @return none
  */
-void handleBuiltInCommands(char* inputString, char **path, int MAX_ARG_LEN);
+int handleBuiltInCommands(char* inputString, char **path, int MAX_ARG_LEN, int MAX_INPUT_CHAR);
     
 #endif
