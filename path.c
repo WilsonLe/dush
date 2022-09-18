@@ -2,9 +2,11 @@
 #include <stdio.h>
 #include <unistd.h>
 
-char *parsePath(char **path, char *program, int numPath, const int MAX_PATH_CHAR, const int MAX_INPUT_CHAR)
+char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_PATH_CHAR, const int MAX_INPUT_CHAR)
 {
 	char *programPath = NULL;
+
+	char *program = strtok(programWithArgs, " ");
 
 	// add spare bytes to prevent stack overflow when doing strcpy
 	char currentPath[MAX_PATH_CHAR + MAX_INPUT_CHAR];

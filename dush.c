@@ -68,7 +68,9 @@ int main()
 
 			// any command that made it here is not a built in command
 			char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+
 			executeCommand(programPath, inputString, redirectPath);
+
 			free(command);
 			free(redirectPath);
 		}
