@@ -8,6 +8,11 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 
 	char *program = strtok(programWithArgs, " ");
 
+	if (access(program, X_OK) == 0)
+	{
+		return program;
+	}
+
 	// add spare bytes to prevent stack overflow when doing strcpy
 	char currentPath[MAX_PATH_CHAR + MAX_INPUT_CHAR];
 

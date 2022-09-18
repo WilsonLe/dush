@@ -74,7 +74,6 @@ int main()
 			free(command);
 			free(redirectPath);
 		}
-
 		free(commands);
 	}
 	free(inputString);
