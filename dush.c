@@ -5,8 +5,8 @@
 #include "path.h"
 #include "parser.h"
 #include "validator.h"
-
-int handleBuiltInCommands(char* inputString, char **path, int MAX_PATH, int MAX_PATH_CHAR, int MAX_INPUT_CHAR);
+#include "handleBuiltIn.h"
+#include "executeCommand.h"
 
 // if there is user input parsing error, call this function then call continue in while loop
 void printError(){};
@@ -25,7 +25,7 @@ int main()
 	long int MAX_INPUT_CHAR = 256;
 
 	int numPath = 0;
-	int buildInExitCode;
+	int buildInExitCode = 0;
 	char **path;
 
 	char *inputString = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
@@ -63,19 +63,19 @@ int main()
 			printf("command: %s\n", command);
 			printf("redirectPath: %s\n", redirectPath);
 
-		// handleBuiltInCommands(inputString, path): Khoi
-		inputString[strlen(inputString)-1] = '\0';
-		buildInExitCode = handleBuiltInCommands(inputString, path, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR);
-		// any command that made it here is not a built in command
+			// handleBuiltInCommands(inputString, path): Khoi
+			buildInExitCode = handleBuiltInCommands(command, path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR);
 
-		// string programPath = pathParser(): Minh
-		// char *programPath = parsePath(path, parsedInputString, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
-		// exec on the program path: Khoi
-		executeCommand(programPath, inputString);
-		// printf("executing: %s\n", programPath);
+			// any command that made it here is not a built in command
+			char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+			executeCommand(programPath, inputString, redirectPath);
+			free(command);
+			free(redirectPath);
+		}
+
+		free(commands);
 	}
-
-	teardown(&path, MAX_PATH);
 	free(inputString);
+	teardown(&path, MAX_PATH);
 	return 0;
 };
