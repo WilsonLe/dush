@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 char *trim(char *str)
 {
@@ -37,6 +38,7 @@ void parseRedirection(char *parsedInputString, char **command, char **redirectPa
 	if (_command == NULL)
 	{
 		printf("Error Occurred\n");
+		return;
 	}
 
 	char *_trimmedCommand = trim(_command);
@@ -53,4 +55,33 @@ void parseRedirection(char *parsedInputString, char **command, char **redirectPa
 		char *_trimmedRedirectPath = trim(_redirectPath);
 		strcpy(*redirectPath, _trimmedRedirectPath);
 	}
+}
+
+void parseParallel(char *parsedInputString, char ***commands, int numCommands)
+{
+	char *command = strtok(parsedInputString, "&");
+	char *trimmedCommand = trim(command);
+	(*commands)[0] = trimmedCommand;
+	for (int i = 1; i < numCommands; i++)
+	{
+		command = strtok(NULL, "&");
+		trimmedCommand = trim(command);
+		(*commands)[i] = trimmedCommand;
+	}
+}
+
+int countNumCommands(char *parsedInputString)
+{
+	char *_parsedInputString = strdup(parsedInputString);
+	int numCommands = 1;
+	char *firstCommand = strtok(_parsedInputString, "&");
+
+	char *command = strtok(NULL, "&");
+	while (command != NULL)
+	{
+		numCommands++;
+		command = strtok(NULL, "&");
+	}
+	free(_parsedInputString);
+	return numCommands;
 }

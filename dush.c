@@ -41,30 +41,39 @@ int main()
 		char *parsedInputString = parseInputString(validatedInputString);
 
 		// check parallel symbol, fit test cases' features
-		// string[] list of commands with arguments parseParallelSymbol(inputString): Khoi
+		int numCommands = countNumCommands(parsedInputString);
+		char **commands = (char **)malloc(sizeof(char *) * numCommands);
+		for (int i = 0; i < numCommands; i++)
+			commands[i] = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 
-		// check redirection symbol, fit test cases' features
-		// for each command with argument
-		char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
-		char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+		parseParallel(parsedInputString, &commands, numCommands);
 
-		parseRedirection(parsedInputString, &command, &redirectPath);
-
-		if (redirectPath != NULL)
+		for (int i = 0; i < numCommands; i++)
 		{
-			printf("%s\n", redirectPath);
+			char *commandAndRedirectPath = commands[i];
+
+			char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+			char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+
+			parseRedirection(commandAndRedirectPath, &command, &redirectPath);
+
+			printf("command: %s\n", command);
+			printf("redirectPath: %s\n", redirectPath);
+
+			// handleBuiltInCommands(inputString, path): Khoi
+
+			// any command that made it here is not a built in command
+
+			char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+
+			// exec on the program path: Khoi
+			printf("executing: %s\n", programPath);
+			free(command);
+			free(redirectPath);
 		}
 
-		// handleBuiltInCommands(inputString, path): Khoi
-
-		// any command that made it here is not a built in command
-
-		char *programPath = parsePath(path, parsedInputString, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
-
-		// exec on the program path: Khoi
-		printf("executing: %s\n", programPath);
-		free(command);
-		free(redirectPath);
+		// intentionally not freeing commands[i] because it's pointers are parts of malloc'd "inputString", which will be freed later.
+		free(commands);
 	}
 
 	teardown(&path, MAX_PATH);
