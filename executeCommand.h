@@ -8,6 +8,6 @@
  * @param path all executable path
  * @return none
  */
-void executeCommand(char* programPath, char* inputString, int MAX_NUM_ARG, int MAX_PATH_CHAR);
+void executeCommand(char* programPath, char* inputString, int MAX_NUM_ARG);
     
 #endif
