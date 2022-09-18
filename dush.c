@@ -60,7 +60,7 @@ int main()
 		// string programPath = pathParser(): Minh
 		// char *programPath = parsePath(path, parsedInputString, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
 		// exec on the program path: Khoi
-		void executeCommand(programPath, inputString);
+		executeCommand(programPath, inputString);
 		// printf("executing: %s\n", programPath);
 	}
 

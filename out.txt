@@ -1,0 +1,27 @@
+total 220
+drwxrwx---  4 le_k2 le_k2  4096 Sep 18 13:39 .
+drwxr-x--- 41 le_k2 le_k2  4096 Sep 18 12:16 ..
+-rwxrwx---  1 le_k2 le_k2 16832 Sep 17 17:55 a.out
+-rw-rw----  1 le_k2 le_k2   796 Sep 16 15:13 bootstrap.c
+-rw-rw----  1 le_k2 le_k2  1072 Sep 16 15:13 bootstrap.h
+-rwxrwx---  1 le_k2 le_k2 18000 Sep 17 22:29 dush
+-rw-rw----  1 le_k2 le_k2  2135 Sep 18 12:25 dush.c
+-rw-rw----  1 le_k2 le_k2  1027 Sep 18 13:38 executeCommand.c
+-rw-rw----  1 le_k2 le_k2   281 Sep 17 23:36 executeCommand.h
+drwxrwx---  8 le_k2 le_k2  4096 Sep 17 23:36 .git
+-rw-rw----  1 le_k2 le_k2  1305 Sep 17 22:29 handleBuiltIn.c
+-rw-rw----  1 le_k2 le_k2   299 Sep 17 22:08 handleBuiltIn.h
+-rw-rw----  1 le_k2 le_k2 73828 Sep 14 18:24 hw2.pdf
+-rw-rw----  1 le_k2 le_k2    81 Sep 17 21:32 makefile
+-rw-rw----  1 le_k2 le_k2     0 Sep 18 13:39 out.txt
+-rw-rw----  1 le_k2 le_k2   203 Sep 16 15:13 parser.c
+-rw-rw----  1 le_k2 le_k2   228 Sep 16 15:13 parser.h
+-rw-rw----  1 le_k2 le_k2  1018 Sep 16 15:13 path.c
+-rw-rw----  1 le_k2 le_k2   307 Sep 16 15:13 path.h
+-rw-rw----  1 le_k2 le_k2    19 Sep 14 18:24 README.md
+-rw-rw----  1 le_k2 le_k2   414 Sep 16 15:13 temp.c
+-rwxrwx---  1 le_k2 le_k2 17224 Sep 18 13:39 test
+-rw-rw----  1 le_k2 le_k2  2204 Sep 18 13:39 test.c
+-rw-rw----  1 le_k2 le_k2    69 Sep 16 15:13 validator.c
+-rw-rw----  1 le_k2 le_k2   246 Sep 16 15:13 validator.h
+drwxrwx---  2 le_k2 le_k2  4096 Sep 16 15:13 .vscode

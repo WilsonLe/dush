@@ -3,7 +3,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include<sys/wait.h>
+#include <sys/wait.h>
 
 int main(){
     // pid_t pid = fork();
@@ -47,29 +47,41 @@ int main(){
     //     printf("%s\n", temp[i]);
     // }
     char* inputString = (char *)malloc(sizeof(char) * 100);
-    inputString = "ls -l";
+    inputString = "ls -a -l";
     char* programPath = "/bin/ls";
 
     char* copyInputString = strdup(inputString);
     char* copyPtr = copyInputString;
+    char* output = "./out.txt";
+
     int numArg = 0;
     for (int i = 0; i<strlen(copyInputString); i++){
         if (copyInputString[i] == ' '){
             numArg += 1;
         }
     }
-
     char** args = (char **)malloc(sizeof(char *) * (numArg+2));
     args[0] = strsep(&copyInputString, " ");
     for (int i = 1; i<numArg+1; i++){
         args[i] = strsep(&copyInputString, " ");
     }
     args[numArg+1] = NULL;
-    for (int i = 0; i<numArg+1; i++){
-        printf("%s\n", args[i]);
+
+    int rc = fork();
+
+    if (rc == -1){
+        printf("fork failed");
     }
-    // call execv
-    execv(programPath, args);
+    else if (rc == 0){
+        freopen(output, "w", stdout);
+        execv(programPath, args);
+    }
+    else {
+        wait(NULL);
+        printf("print something\n");
+        free(copyPtr);
+        free(args);
+    }
 
     return 0;
 }
