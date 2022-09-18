@@ -47,8 +47,8 @@ int main(){
     //     printf("%s\n", temp[i]);
     // }
     char* inputString = (char *)malloc(sizeof(char) * 100);
-    inputString = "ls -a -l";
-    char* programPath = "/bin/ls";
+    inputString = "clear";
+    char* programPath = "/bin/clear";
 
     char* copyInputString = strdup(inputString);
     char* copyPtr = copyInputString;
@@ -80,6 +80,7 @@ int main(){
         wait(NULL);
         printf("print something\n");
         free(copyPtr);
+		free((args)[numArg+1]);
         free(args);
     }
 
