@@ -8,6 +8,10 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 
 	char *program = strtok(programWithArgs, " ");
 
+	if (strcmp(program, "cd") == 0 || strcmp(program, "exit") == 0 || strcmp(program, "path") == 0){
+		return program;
+	}
+
 	if (access(program, X_OK) == 0)
 	{
 		return program;

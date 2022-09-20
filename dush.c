@@ -13,7 +13,7 @@ void printError(){};
 
 // if user called programs throw error, dush just need to call continue
 
-int main()
+int main(int argc, char** argv)
 {
 	setbuf(stdout, NULL);
 	int hasError = 0;
@@ -32,46 +32,100 @@ int main()
 
 	setup(&path, MAX_PATH, MAX_PATH_CHAR, &numPath);
 
-	while (1)
-	{
-		// user input
-		printf("$ ");
-		getline(&inputString, &MAX_INPUT_CHAR, stdin);
-		// start edit from here
+	if (argc == 2){
+		char* filename = argv[1];
+        FILE* fp;
+        //char* line = NULL;
+        size_t len = 0;
+        size_t read;
+		while ((read = getline(&inputString, &len, fp)) != -1) {
+            //printf("Retrieved line of length %d:\n", (int)read);
+            //printf("Line %s:\n", inputString);
+            inputString[(int)read-1] = '\0';
+            // printf("%s", line);
+            // execute on each line
+            char *validatedInputString = validateInputString(inputString);
 
-		char *validatedInputString = validateInputString(inputString);
+			char *parsedInputString = parseInputString(validatedInputString);
 
-		char *parsedInputString = parseInputString(validatedInputString);
+			// check parallel symbol, fit test cases' features
+			int numCommands = countNumCommands(parsedInputString);
+			char **commands = (char **)malloc(sizeof(char *) * numCommands);
+			for (int i = 0; i < numCommands; i++)
+				commands[i] = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 
-		// check parallel symbol, fit test cases' features
-		int numCommands = countNumCommands(parsedInputString);
-		char **commands = (char **)malloc(sizeof(char *) * numCommands);
-		for (int i = 0; i < numCommands; i++)
-			commands[i] = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+			parseParallel(parsedInputString, &commands, numCommands);
 
-		parseParallel(parsedInputString, &commands, numCommands);
+			for (int i = 0; i < numCommands; i++)
+			{
+				char *commandAndRedirectPath = commands[i];
 
-		for (int i = 0; i < numCommands; i++)
+				char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+				char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+
+				parseRedirection(commandAndRedirectPath, &command, &redirectPath);
+
+				// handleBuiltInCommands(inputString, path): Khoi
+				buildInExitCode = handleBuiltInCommands(command, path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+
+				// any command that made it here is not a built in command
+				char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+
+				executeCommand(programPath, parsedInputString, redirectPath);
+
+				free(command);
+				free(redirectPath);
+			}
+			free(commands);
+        }
+        fclose(fp);
+	}
+
+	else if (argc == 1){
+		while (1)
 		{
-			char *commandAndRedirectPath = commands[i];
+			// user input
+			printf("$ ");
+			getline(&inputString, &MAX_INPUT_CHAR, stdin);
+			// start edit from here
 
-			char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
-			char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+			char *validatedInputString = validateInputString(inputString);
 
-			parseRedirection(commandAndRedirectPath, &command, &redirectPath);
+			char *parsedInputString = parseInputString(validatedInputString);
 
-			// handleBuiltInCommands(inputString, path): Khoi
-			buildInExitCode = handleBuiltInCommands(command, path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+			// check parallel symbol, fit test cases' features
+			int numCommands = countNumCommands(parsedInputString);
+			char **commands = (char **)malloc(sizeof(char *) * numCommands);
+			for (int i = 0; i < numCommands; i++)
+				commands[i] = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 
-			// any command that made it here is not a built in command
-			char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+			parseParallel(parsedInputString, &commands, numCommands);
 
-			executeCommand(programPath, parsedInputString, redirectPath);
+			for (int i = 0; i < numCommands; i++)
+			{
+				char *commandAndRedirectPath = commands[i];
 
-			free(command);
-			free(redirectPath);
+				char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+				char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+
+				parseRedirection(commandAndRedirectPath, &command, &redirectPath);
+
+				// handleBuiltInCommands(inputString, path): Khoi
+				buildInExitCode = handleBuiltInCommands(command, path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+
+				// any command that made it here is not a built in command
+				char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+
+				executeCommand(programPath, parsedInputString, redirectPath);
+
+				free(command);
+				free(redirectPath);
+			}
+			free(commands);
 		}
-		free(commands);
+	}
+	else {
+		// Raise error
 	}
 	free(inputString);
 	teardown(&path, MAX_PATH);
