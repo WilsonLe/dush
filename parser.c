@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 char *trim(char *str)
 {
@@ -37,7 +38,8 @@ void parseRedirection(char *parsedInputString, char **command, char **redirectPa
 
 	if (_command == NULL)
 	{
-		printf("An error has occurred\n");
+		char error_message[30] = "An error has occurred\n";
+		write(STDERR_FILENO, error_message, strlen(error_message));
 		return;
 	}
 

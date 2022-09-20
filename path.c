@@ -27,7 +27,8 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 		// double check sizeof path[i] to be smaller than destination current path
 		if (strlen(path[i]) > sizeof currentPath)
 		{
-			printf("An error has occurred\n");
+			char error_message[30] = "An error has occurred\n";
+			write(STDERR_FILENO, error_message, strlen(error_message));
 			return NULL;
 		}
 		strcpy(currentPath, path[i]);
@@ -35,7 +36,8 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 		// double check sizeof path[i] + program path to be smaller than destination current path
 		if (strlen(path[i]) + strlen(program) > sizeof currentPath)
 		{
-			printf("An error has occurred\n");
+			char error_message[30] = "An error has occurred\n";
+			write(STDERR_FILENO, error_message, strlen(error_message));
 			return NULL;
 		}
 		strcat(currentPath, program);
@@ -49,7 +51,8 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 
 	if (programPath == NULL)
 	{
-		printf("An error has occurred\n");
+		char error_message[30] = "An error has occurred\n";
+		write(STDERR_FILENO, error_message, strlen(error_message));
 		return NULL;
 	}
 

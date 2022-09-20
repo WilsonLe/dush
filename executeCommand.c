@@ -31,7 +31,8 @@ void executeCommand(char *programPath, char *inputString, char *output)
 
     if (rc == -1)
     {
-        printf("An error has occurred\n");
+        char error_message[30] = "An error has occurred\n";
+        write(STDERR_FILENO, error_message, strlen(error_message));
     }
     else if (rc == 0)
     {

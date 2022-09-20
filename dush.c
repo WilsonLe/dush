@@ -7,6 +7,7 @@
 #include "validator.h"
 #include "handleBuiltIn.h"
 #include "executeCommand.h"
+#include <unistd.h>
 
 // if user called programs throw error, dush just need to call continue
 
@@ -78,7 +79,8 @@ int main(int argc, char **argv)
 				}
 				else if (buildInExitCode == 1)
 				{
-					printf("An error has occurred\n");
+					char error_message[30] = "An error has occurred\n";
+					write(STDERR_FILENO, error_message, strlen(error_message));
 				}
 
 				free(command);
@@ -131,7 +133,8 @@ int main(int argc, char **argv)
 				}
 				else if (buildInExitCode)
 				{
-					printf("An error has occurred\n");
+					char error_message[30] = "An error has occurred\n";
+					write(STDERR_FILENO, error_message, strlen(error_message));
 				}
 				free(command);
 				free(redirectPath);
@@ -141,7 +144,8 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		printf("An error has occurred\n");
+		char error_message[30] = "An error has occurred\n";
+		write(STDERR_FILENO, error_message, strlen(error_message));
 	}
 	free(inputString);
 	teardown(&path, MAX_PATH);
