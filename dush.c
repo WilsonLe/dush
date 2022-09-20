@@ -60,16 +60,13 @@ int main()
 
 			parseRedirection(commandAndRedirectPath, &command, &redirectPath);
 
-			printf("command: %s\n", command);
-			printf("redirectPath: %s\n", redirectPath);
-
 			// handleBuiltInCommands(inputString, path): Khoi
 			buildInExitCode = handleBuiltInCommands(command, path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR);
 
 			// any command that made it here is not a built in command
 			char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
 
-			executeCommand(programPath, inputString, redirectPath);
+			executeCommand(programPath, parsedInputString, redirectPath);
 
 			free(command);
 			free(redirectPath);
