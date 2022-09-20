@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-int main(){
+int main(int argc, char** argv){
     // pid_t pid = fork();
     // char* arg[] = { "ls", "-a", "-C", ">", NULL };
     // char s[100];
@@ -46,42 +46,60 @@ int main(){
     // for (int i = 0; i < 3; i++){
     //     printf("%s\n", temp[i]);
     // }
-    char* inputString = (char *)malloc(sizeof(char) * 100);
-    inputString = "clear";
-    char* programPath = "/bin/clear";
+    // char* inputString = (char *)malloc(sizeof(char) * 100);
+    // inputString = "clear";
+    // char* programPath = "/bin/clear";
 
-    char* copyInputString = strdup(inputString);
-    char* copyPtr = copyInputString;
-    char* output = "./out.txt";
+    // char* copyInputString = strdup(inputString);
+    // char* copyPtr = copyInputString;
+    // char* output = "./out.txt";
 
-    int numArg = 0;
-    for (int i = 0; i<strlen(copyInputString); i++){
-        if (copyInputString[i] == ' '){
-            numArg += 1;
+    // int numArg = 0;
+    // for (int i = 0; i<strlen(copyInputString); i++){
+    //     if (copyInputString[i] == ' '){
+    //         numArg += 1;
+    //     }
+    // }
+    // char** args = (char **)malloc(sizeof(char *) * (numArg+2));
+    // args[0] = strsep(&copyInputString, " ");
+    // for (int i = 1; i<numArg+1; i++){
+    //     args[i] = strsep(&copyInputString, " ");
+    // }
+    // args[numArg+1] = NULL;
+
+    // int rc = fork();
+
+    // if (rc == -1){
+    //     printf("fork failed");
+    // }
+    // else if (rc == 0){
+    //     freopen(output, "w", stdout);
+    //     execv(programPath, args);
+    // }
+    // else {
+    //     wait(NULL);
+    //     printf("print something\n");
+    //     free(copyPtr);
+	// 	free((args)[numArg+1]);
+    //     free(args);
+    // }
+
+    if (argc == 2){
+        char* filename = argv[1];
+        FILE* fp;
+        char* line = NULL;
+        size_t len = 0;
+        size_t read;
+
+
+        fp = fopen(filename, "r");
+        while ((read = getline(&line, &len, fp)) != -1) {
+            printf("Retrieved line of length %d:\n", (int)read);
+            line[(int)read-1] = '\0';
+            // printf("%s", line);
+            // execute on each line
         }
-    }
-    char** args = (char **)malloc(sizeof(char *) * (numArg+2));
-    args[0] = strsep(&copyInputString, " ");
-    for (int i = 1; i<numArg+1; i++){
-        args[i] = strsep(&copyInputString, " ");
-    }
-    args[numArg+1] = NULL;
-
-    int rc = fork();
-
-    if (rc == -1){
-        printf("fork failed");
-    }
-    else if (rc == 0){
-        freopen(output, "w", stdout);
-        execv(programPath, args);
-    }
-    else {
-        wait(NULL);
-        printf("print something\n");
-        free(copyPtr);
-		free((args)[numArg+1]);
-        free(args);
+        fclose(fp);
     }
 
     return 0;
