@@ -8,6 +8,11 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 
 	char *program = strtok(programWithArgs, " ");
 
+	if (strcmp(program, "cd") == 0 || strcmp(program, "exit") == 0 || strcmp(program, "path") == 0)
+	{
+		return program;
+	}
+
 	if (access(program, X_OK) == 0)
 	{
 		return program;
@@ -22,7 +27,7 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 		// double check sizeof path[i] to be smaller than destination current path
 		if (strlen(path[i]) > sizeof currentPath)
 		{
-			printf("Error occured\n");
+			printf("An error has occurred\n");
 			return NULL;
 		}
 		strcpy(currentPath, path[i]);
@@ -30,7 +35,7 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 		// double check sizeof path[i] + program path to be smaller than destination current path
 		if (strlen(path[i]) + strlen(program) > sizeof currentPath)
 		{
-			printf("Error occured\n");
+			printf("An error has occurred\n");
 			return NULL;
 		}
 		strcat(currentPath, program);
@@ -44,7 +49,7 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 
 	if (programPath == NULL)
 	{
-		printf("Invalid program\n");
+		printf("An error has occurred\n");
 		return NULL;
 	}
 

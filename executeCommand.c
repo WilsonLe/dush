@@ -31,7 +31,7 @@ void executeCommand(char *programPath, char *inputString, char *output)
 
     if (rc == -1)
     {
-        printf("fork failed\n");
+        printf("An error has occurred\n");
     }
     else if (rc == 0)
     {

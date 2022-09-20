@@ -37,7 +37,7 @@ void parseRedirection(char *parsedInputString, char **command, char **redirectPa
 
 	if (_command == NULL)
 	{
-		printf("Error Occurred\n");
+		printf("An error has occurred\n");
 		return;
 	}
 

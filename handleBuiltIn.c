@@ -21,7 +21,7 @@ int handleBuiltInCommands(char *inputString, char **path, char *redirectPath, in
     {
         if (numArg == 0)
         {
-            exit(1);
+            exit(0);
         }
         else
         {
