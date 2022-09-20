@@ -71,7 +71,9 @@ int main(int argc, char** argv)
 				// any command that made it here is not a built in command
 				char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
 
-				executeCommand(programPath, parsedInputString, redirectPath);
+				if (buildInExitCode == -1){
+					executeCommand(programPath, parsedInputString, redirectPath);
+				}
 
 				free(command);
 				free(redirectPath);
@@ -92,7 +94,6 @@ int main(int argc, char** argv)
 			char *validatedInputString = validateInputString(inputString);
 
 			char *parsedInputString = parseInputString(validatedInputString);
-
 			// check parallel symbol, fit test cases' features
 			int numCommands = countNumCommands(parsedInputString);
 			char **commands = (char **)malloc(sizeof(char *) * numCommands);
@@ -100,7 +101,7 @@ int main(int argc, char** argv)
 				commands[i] = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 
 			parseParallel(parsedInputString, &commands, numCommands);
-
+			// printf("Parsed string: %s\n", parsedInputString);
 			for (int i = 0; i < numCommands; i++)
 			{
 				char *commandAndRedirectPath = commands[i];
@@ -109,14 +110,15 @@ int main(int argc, char** argv)
 				char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 
 				parseRedirection(commandAndRedirectPath, &command, &redirectPath);
-
+				
 				// handleBuiltInCommands(inputString, path): Khoi
 				buildInExitCode = handleBuiltInCommands(command, path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR);
-
+		
 				// any command that made it here is not a built in command
 				char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
-
-				executeCommand(programPath, parsedInputString, redirectPath);
+				if (buildInExitCode == -1){
+					executeCommand(programPath, parsedInputString, redirectPath);
+				}
 
 				free(command);
 				free(redirectPath);

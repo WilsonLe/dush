@@ -40,7 +40,7 @@ void executeCommand(char *programPath, char *inputString, char *output)
     }
     else
     {
-        wait(NULL);
+        int rc_wait = wait(NULL);
         free(args[numArg + 1]);
         free(copyPtr);
         free(args);
