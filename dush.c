@@ -39,6 +39,13 @@ int main(int argc, char **argv)
 		size_t read;
 
 		fp = fopen(filename, "r");
+		if (fp == NULL)
+		{
+			char error_message[30] = "An error has occurred\n";
+			write(STDERR_FILENO, error_message, strlen(error_message));
+			exit(1);
+		}
+
 		while ((read = getline(&inputString, &len, fp)) != -1)
 		{
 			// printf("Retrieved line of length %d:\n", (int)read);
@@ -123,6 +130,7 @@ int main(int argc, char **argv)
 			}
 			free(commands);
 		}
+
 		fclose(fp);
 	}
 	else if (argc == 1)
