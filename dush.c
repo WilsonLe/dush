@@ -14,7 +14,6 @@
 
 int main(int argc, char **argv)
 {
-	// setbuf(stdout, NULL);
 	int hasError = 0;
 
 	char *exitString = "exit";
@@ -214,7 +213,7 @@ int main(int argc, char **argv)
 	{
 		char error_message[30] = "An error has occurred\n";
 		write(STDERR_FILENO, error_message, strlen(error_message));
-		return 1;
+		exit(1);
 	}
 	free(inputString);
 	teardown(&path, MAX_PATH);
