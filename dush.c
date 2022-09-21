@@ -64,8 +64,26 @@ int main(int argc, char **argv)
 
 				char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 				char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+				int numRedirs = 0;
 
-				parseRedirection(commandAndRedirectPath, &command, &redirectPath);
+				parseRedirection(commandAndRedirectPath, &command, &redirectPath, &numRedirs);
+
+				// user did input > but did not specify a value after >
+				if (numRedirs > 1)
+				{
+					char error_message[30] = "An error has occurred\n";
+					write(STDERR_FILENO, error_message, strlen(error_message));
+					continue;
+				}
+				else if (numRedirs == 1)
+				{
+					if (redirectPath == NULL)
+					{
+						char error_message[30] = "An error has occurred\n";
+						write(STDERR_FILENO, error_message, strlen(error_message));
+						continue;
+					}
+				}
 
 				// handleBuiltInCommands(inputString, path): Khoi
 				buildInExitCode = handleBuiltInCommands(command, &path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR, &numPath);
@@ -122,8 +140,26 @@ int main(int argc, char **argv)
 
 				char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 				char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
+				int numRedirs = 0;
 
-				parseRedirection(commandAndRedirectPath, &command, &redirectPath);
+				parseRedirection(commandAndRedirectPath, &command, &redirectPath, &numRedirs);
+
+				// user did input > but did not specify a value after >
+				if (numRedirs > 1)
+				{
+					char error_message[30] = "An error has occurred\n";
+					write(STDERR_FILENO, error_message, strlen(error_message));
+					continue;
+				}
+				else if (numRedirs == 1)
+				{
+					if (redirectPath == NULL)
+					{
+						char error_message[30] = "An error has occurred\n";
+						write(STDERR_FILENO, error_message, strlen(error_message));
+						continue;
+					}
+				}
 
 				// handleBuiltInCommands(inputString, path): Khoi
 				buildInExitCode = handleBuiltInCommands(command, &path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR, &numPath);

@@ -16,7 +16,7 @@ char *parseInputString(char *inputString);
  * @param command result command to be parsed. NULL if no command
  * @param redirectionPath result redirection path to be parsed. NULL if no direction path is specified
  */
-void parseRedirection(char *parsedInputString, char **command, char **redirectPath);
+void parseRedirection(char *parsedInputString, char **command, char **redirectPath, int *numRedirs);
 
 /**
  * @brief count number of parallel commands to malloc the appropriately

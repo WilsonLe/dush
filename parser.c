@@ -32,8 +32,16 @@ char *parseInputString(char *inputString)
 	return trimmedInputString;
 }
 
-void parseRedirection(char *parsedInputString, char **command, char **redirectPath)
+void parseRedirection(char *parsedInputString, char **command, char **redirectPath, int *numRedirs)
 {
+	for (int i = 0; i < strlen(parsedInputString); i++)
+	{
+		if (strcmp(&(parsedInputString[i]), ">") == 0)
+		{
+			(*numRedirs)++;
+		}
+	}
+
 	char *_command = strtok(parsedInputString, ">");
 
 	if (_command == NULL)
