@@ -13,7 +13,7 @@
 
 int main(int argc, char **argv)
 {
-	setbuf(stdout, NULL);
+	// setbuf(stdout, NULL);
 	int hasError = 0;
 
 	char *exitString = "exit";
@@ -68,10 +68,13 @@ int main(int argc, char **argv)
 				parseRedirection(commandAndRedirectPath, &command, &redirectPath);
 
 				// handleBuiltInCommands(inputString, path): Khoi
-				buildInExitCode = handleBuiltInCommands(command, path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+				buildInExitCode = handleBuiltInCommands(command, &path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR, &numPath);
 
 				// any command that made it here is not a built in command
 				char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+
+				if (programPath == NULL)
+					continue;
 
 				if (buildInExitCode == -1)
 				{
@@ -123,10 +126,13 @@ int main(int argc, char **argv)
 				parseRedirection(commandAndRedirectPath, &command, &redirectPath);
 
 				// handleBuiltInCommands(inputString, path): Khoi
-				buildInExitCode = handleBuiltInCommands(command, path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+				buildInExitCode = handleBuiltInCommands(command, &path, redirectPath, MAX_PATH, MAX_PATH_CHAR, MAX_INPUT_CHAR, &numPath);
 
 				// any command that made it here is not a built in command
 				char *programPath = parsePath(path, command, numPath, MAX_PATH_CHAR, MAX_INPUT_CHAR);
+				if (programPath == NULL)
+					continue;
+
 				if (buildInExitCode == -1)
 				{
 					executeCommand(programPath, parsedInputString, redirectPath);

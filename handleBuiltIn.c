@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include "bootstrap.h"
 
-int handleBuiltInCommands(char *inputString, char **path, char *redirectPath, int MAX_PATH, int MAX_PATH_CHAR, int MAX_INPUT_CHAR)
+int handleBuiltInCommands(char *inputString, char ***path, char *redirectPath, int MAX_PATH, int MAX_PATH_CHAR, int MAX_INPUT_CHAR, int *numPath)
 {
     char *copyInputString = strdup(inputString);
     char *copyPtr = copyInputString;
@@ -45,14 +45,19 @@ int handleBuiltInCommands(char *inputString, char **path, char *redirectPath, in
     }
     else if (strcmp(cmd, "path") == 0)
     {
-        teardownPath(&path, MAX_PATH);
         int count = 0;
-        setupPath(&path, MAX_PATH, MAX_PATH_CHAR);
+        *(numPath) = 0;
+
         char *argStr;
         while ((argStr = strsep(&copyInputString, " ")) != NULL)
         {
-            path[count] = argStr;
+            if (strcmp(&(argStr[strlen(argStr) - 1]), "/") != 0)
+            {
+                strcat(argStr, "/");
+            }
+            strcpy((*path)[count], argStr);
             count += 1;
+            *(numPath) += 1;
         }
         free(copyPtr);
         return 0;
