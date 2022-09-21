@@ -48,11 +48,6 @@ int main(int argc, char **argv)
 
 		while ((read = getline(&inputString, &len, fp)) != -1)
 		{
-			// printf("Retrieved line of length %d:\n", (int)read);
-			// printf("Line %s:\n", inputString);
-			// inputString[(int)read - 1] = '\0';
-			// printf("%s", line);
-			// execute on each line
 			char *validatedInputString = validateInputString(inputString);
 
 			char *parsedInputString = parseInputString(validatedInputString);
@@ -69,6 +64,9 @@ int main(int argc, char **argv)
 			parseParallel(parsedInputString, &commands, numCommands);
 			if (commands[0] == NULL)
 				continue;
+
+			pid_t *pids = (pid_t *)malloc(sizeof(pid_t) * numCommands);
+			int *stat_loc = (int *)malloc(sizeof(int) * numCommands);
 
 			for (int i = 0; i < numCommands; i++)
 			{
@@ -116,8 +114,7 @@ int main(int argc, char **argv)
 
 				if (buildInExitCode == -1)
 				{
-					// executeCommand(programPath, command, redirectPath);
-					executeCommand(programPath, command, redirectPath);
+					executeCommand(programPath, command, redirectPath, &(pids[i]));
 				}
 				else if (buildInExitCode == 1)
 				{
@@ -128,6 +125,12 @@ int main(int argc, char **argv)
 				free(command);
 				free(redirectPath);
 			}
+
+			for (int i = 0; i < numCommands; i++)
+				waitpid(pids[i], &(stat_loc[i]), 0);
+
+			free(pids);
+			free(stat_loc);
 			free(commands);
 		}
 
@@ -158,6 +161,9 @@ int main(int argc, char **argv)
 			parseParallel(parsedInputString, &commands, numCommands);
 			if (commands[0] == NULL)
 				continue;
+
+			pid_t *pids = (pid_t *)malloc(sizeof(pid_t) * numCommands);
+			int *stat_loc = (int *)malloc(sizeof(int) * numCommands);
 
 			for (int i = 0; i < numCommands; i++)
 			{
@@ -204,7 +210,7 @@ int main(int argc, char **argv)
 
 				if (buildInExitCode == -1)
 				{
-					executeCommand(programPath, command, redirectPath);
+					executeCommand(programPath, command, redirectPath, &(pids[i]));
 				}
 				else if (buildInExitCode)
 				{
@@ -214,6 +220,12 @@ int main(int argc, char **argv)
 				free(command);
 				free(redirectPath);
 			}
+
+			for (int i = 0; i < numCommands; i++)
+				waitpid(pids[i], &(stat_loc[i]), 0);
+
+			free(pids);
+			free(stat_loc);
 			free(commands);
 		}
 	}

@@ -8,6 +8,6 @@
  * @param path all executable path
  * @return none
  */
-void executeCommand(char *programPath, char *inputString, char *output);
+void executeCommand(char *programPath, char *inputString, char *output, int *childPid);
 
 #endif

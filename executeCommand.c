@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-void executeCommand(char *programPath, char *inputString, char *output)
+void executeCommand(char *programPath, char *inputString, char *output, int *childPid)
 {
     char *copyInputString = strdup(inputString);
     char *copyPtr = copyInputString;
@@ -36,12 +36,13 @@ void executeCommand(char *programPath, char *inputString, char *output)
     }
     else if (rc == 0)
     {
-        freopen(output, "a", stdout);
+        freopen(output, "w+", stdout);
         execv(programPath, args);
     }
     else
     {
-        wait(NULL);
+        *childPid = rc;
+        // wait(NULL);
         free(args[numArg + 1]);
         free(copyPtr);
         free(args);
