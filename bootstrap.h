@@ -22,6 +22,7 @@ void teardownPath(char ***path, const int MAX_PATH);
  * @brief inject default values to path
  *
  * @param path path to be injected
+ * @param numPath the number of path
  */
 void injectDefaultPath(char ***path, int *numPath);
 
@@ -31,6 +32,7 @@ void injectDefaultPath(char ***path, int *numPath);
  * @param path variable pointer
  * @param MAX_PATH max number of path
  * @param MAX_PATH_CHAR max number of char in a path
+ * @param numPath the number of path
  */
 void setup(char ***path, const int MAX_PATH, const int MAX_PATH_CHAR, int *numPath);
 

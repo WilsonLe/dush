@@ -15,6 +15,8 @@ char *parseInputString(char *inputString);
  * @param parsedInputString input string to be parsed
  * @param command result command to be parsed. NULL if no command
  * @param redirectionPath result redirection path to be parsed. NULL if no direction path is specified
+ * @param numRedirs the number of redirection path
+ * @param numOutputSpaces the number of spaces in the output redirection path
  */
 void parseRedirection(char *parsedInputString, char **command, char **redirectPath, int *numRedirs, int *numOutputSpaces);
 
@@ -30,6 +32,8 @@ int countNumCommands(char *parsedInputString);
  * @brief parse input sstring into commands with args and redirection path
  *
  * @param parsedInputString input string to be parsed
+ * @param commands the array of commands
+ * @param numCommands the number of commands
  */
 void parseParallel(char *parsedInputString, char ***commands, int numCommands);
 

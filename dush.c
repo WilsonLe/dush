@@ -4,7 +4,6 @@
 #include "bootstrap.h"
 #include "path.h"
 #include "parser.h"
-#include "validator.h"
 #include "handleBuiltIn.h"
 #include "executeCommand.h"
 #include <unistd.h>
@@ -32,10 +31,10 @@ int main(int argc, char **argv)
 	{
 		char *filename = argv[1];
 		FILE *fp;
-		// char* line = NULL;
 		size_t len = 0;
 		size_t read;
 
+		// Check for error openning the file
 		fp = fopen(filename, "r");
 		if (fp == NULL)
 		{
@@ -43,12 +42,10 @@ int main(int argc, char **argv)
 			write(STDERR_FILENO, error_message, strlen(error_message));
 			exit(1);
 		}
-
+		// Read all the commands in batch file
 		while ((read = getline(&inputString, &len, fp)) != -1)
 		{
-			char *validatedInputString = validateInputString(inputString);
-
-			char *parsedInputString = parseInputString(validatedInputString);
+			char *parsedInputString = parseInputString(inputString);
 
 			if (strlen(parsedInputString) == 0)
 				continue;
@@ -139,13 +136,10 @@ int main(int argc, char **argv)
 		while (1)
 		{
 			// user input
-			printf("$ ");
+			printf("dush> ");
 			getline(&inputString, &MAX_INPUT_CHAR, stdin);
-			// start edit from here
 
-			char *validatedInputString = validateInputString(inputString);
-
-			char *parsedInputString = parseInputString(validatedInputString);
+			char *parsedInputString = parseInputString(inputString);
 
 			if (strlen(parsedInputString) == 0)
 				continue;
