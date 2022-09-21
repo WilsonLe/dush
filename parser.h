@@ -24,7 +24,7 @@ void parseRedirection(char *parsedInputString, char **command, char **redirectPa
  * @brief count number of parallel commands to malloc the appropriately
  *
  * @param parsedInputString input string to be parsed into parallel commands
- * @return int
+ * @return the number of commands
  */
 int countNumCommands(char *parsedInputString);
 
@@ -41,6 +41,8 @@ void parseParallel(char *parsedInputString, char ***commands, int numCommands);
  * @brief trim an input string's left and right white spaces
  *
  * @param s input string to be trimmed
+ *
+ * @return the trimmed string
  */
 char *trim(char *s);
 #endif

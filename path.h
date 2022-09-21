@@ -9,6 +9,8 @@
  * @param numPath the number of paths
  * @param MAX_PATH_CHAR the maximum size of a path
  * @param MAX_INPUT_CHAR the maximum input size
+ *
+ * @return the paths from the input
  */
 char *parsePath(char **path, char *program, int numPath, const int MAX_PATH_CHAR, const int MAX_INPUT_CHAR);
 
