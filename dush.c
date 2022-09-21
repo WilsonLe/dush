@@ -10,8 +10,6 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-// if user called programs throw error, dush just need to call continue
-
 int main(int argc, char **argv)
 {
 	int hasError = 0;

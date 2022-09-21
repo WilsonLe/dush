@@ -36,13 +36,19 @@ void executeCommand(char *programPath, char *inputString, char *output, int *chi
     }
     else if (rc == 0)
     {
-        freopen(output, "w+", stdout);
+        if (output == NULL)
+        {
+            freopen(NULL, "a", stdout);
+        }
+        else
+        {
+            freopen(output, "w", stdout);
+        }
         execv(programPath, args);
     }
     else
     {
         *childPid = rc;
-        // wait(NULL);
         free(args[numArg + 1]);
         free(copyPtr);
         free(args);
