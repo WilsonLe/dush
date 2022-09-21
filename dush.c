@@ -65,8 +65,9 @@ int main(int argc, char **argv)
 				char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 				char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 				int numRedirs = 0;
+				int numOutputSpaces = 0;
 
-				parseRedirection(commandAndRedirectPath, &command, &redirectPath, &numRedirs);
+				parseRedirection(commandAndRedirectPath, &command, &redirectPath, &numRedirs, &numOutputSpaces);
 
 				// user did input > but did not specify a value after >
 				if (numRedirs > 1)
@@ -77,6 +78,13 @@ int main(int argc, char **argv)
 				}
 				else if (numRedirs == 1)
 				{
+					if (numOutputSpaces != 0)
+					{
+						char error_message[30] = "An error has occurred\n";
+						write(STDERR_FILENO, error_message, strlen(error_message));
+						continue;
+					}
+
 					if (redirectPath == NULL)
 					{
 						char error_message[30] = "An error has occurred\n";
@@ -141,8 +149,8 @@ int main(int argc, char **argv)
 				char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 				char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 				int numRedirs = 0;
-
-				parseRedirection(commandAndRedirectPath, &command, &redirectPath, &numRedirs);
+				int numOutputSpaces = 0;
+				parseRedirection(commandAndRedirectPath, &command, &redirectPath, &numRedirs, &numOutputSpaces);
 
 				// user did input > but did not specify a value after >
 				if (numRedirs > 1)
@@ -153,6 +161,13 @@ int main(int argc, char **argv)
 				}
 				else if (numRedirs == 1)
 				{
+					if (numOutputSpaces != 0)
+					{
+						char error_message[30] = "An error has occurred\n";
+						write(STDERR_FILENO, error_message, strlen(error_message));
+						continue;
+					}
+
 					if (redirectPath == NULL)
 					{
 						char error_message[30] = "An error has occurred\n";

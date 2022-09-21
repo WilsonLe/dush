@@ -32,11 +32,11 @@ char *parseInputString(char *inputString)
 	return trimmedInputString;
 }
 
-void parseRedirection(char *parsedInputString, char **command, char **redirectPath, int *numRedirs)
+void parseRedirection(char *parsedInputString, char **command, char **redirectPath, int *numRedirs, int *numOutputSpaces)
 {
 	for (int i = 0; i < strlen(parsedInputString); i++)
 	{
-		if (strcmp(&(parsedInputString[i]), ">") == 0)
+		if (parsedInputString[i] == '>')
 		{
 			(*numRedirs)++;
 		}
@@ -63,7 +63,21 @@ void parseRedirection(char *parsedInputString, char **command, char **redirectPa
 	else
 	{
 		char *_trimmedRedirectPath = trim(_redirectPath);
-		strcpy(*redirectPath, _trimmedRedirectPath);
+		for (int i = 0; i < strlen(_trimmedRedirectPath); i++)
+		{
+			if (_trimmedRedirectPath[i] == ' ')
+			{
+				(*numOutputSpaces)++;
+			}
+		}
+		if (numOutputSpaces == 0)
+		{
+			strcpy(*redirectPath, _trimmedRedirectPath);
+		}
+		else
+		{
+			*redirectPath = NULL;
+		}
 	}
 }
 
