@@ -51,13 +51,16 @@ int handleBuiltInCommands(char *inputString, char ***path, char *redirectPath, i
         char *argStr;
         while ((argStr = strsep(&copyInputString, " ")) != NULL)
         {
+            char *_argStr = strdup(argStr);
             if (strcmp(&(argStr[strlen(argStr) - 1]), "/") != 0)
             {
-                strcat(argStr, "/");
+                strcat(_argStr, "/");
             }
-            strcpy((*path)[count], argStr);
+            (*path)[count] = _argStr;
             count += 1;
             *(numPath) += 1;
+            // intentionally not free this because will be freed when teardownPath
+            // free(_argStr)
         }
         free(copyPtr);
         return 0;

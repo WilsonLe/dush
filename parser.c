@@ -84,7 +84,15 @@ void parseRedirection(char *parsedInputString, char **command, char **redirectPa
 void parseParallel(char *parsedInputString, char ***commands, int numCommands)
 {
 	char *command = strtok(parsedInputString, "&");
+
+	if (command == NULL)
+	{
+		(*commands)[0] = NULL;
+		return;
+	}
+
 	char *trimmedCommand = trim(command);
+
 	(*commands)[0] = trimmedCommand;
 	for (int i = 1; i < numCommands; i++)
 	{

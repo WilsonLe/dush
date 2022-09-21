@@ -36,7 +36,7 @@ void executeCommand(char *programPath, char *inputString, char *output)
     }
     else if (rc == 0)
     {
-        freopen(output, "w", stdout);
+        freopen(output, "a", stdout);
         execv(programPath, args);
     }
     else

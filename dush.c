@@ -8,6 +8,7 @@
 #include "handleBuiltIn.h"
 #include "executeCommand.h"
 #include <unistd.h>
+#include <sys/wait.h>
 
 // if user called programs throw error, dush just need to call continue
 
@@ -43,12 +44,15 @@ int main(int argc, char **argv)
 		{
 			// printf("Retrieved line of length %d:\n", (int)read);
 			// printf("Line %s:\n", inputString);
-			inputString[(int)read - 1] = '\0';
+			// inputString[(int)read - 1] = '\0';
 			// printf("%s", line);
 			// execute on each line
 			char *validatedInputString = validateInputString(inputString);
 
 			char *parsedInputString = parseInputString(validatedInputString);
+
+			if (strlen(parsedInputString) == 0)
+				continue;
 
 			// check parallel symbol, fit test cases' features
 			int numCommands = countNumCommands(parsedInputString);
@@ -57,6 +61,8 @@ int main(int argc, char **argv)
 				commands[i] = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 
 			parseParallel(parsedInputString, &commands, numCommands);
+			if (commands[0] == NULL)
+				continue;
 
 			for (int i = 0; i < numCommands; i++)
 			{
@@ -132,6 +138,7 @@ int main(int argc, char **argv)
 			char *validatedInputString = validateInputString(inputString);
 
 			char *parsedInputString = parseInputString(validatedInputString);
+
 			if (strlen(parsedInputString) == 0)
 				continue;
 
@@ -142,10 +149,13 @@ int main(int argc, char **argv)
 				commands[i] = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 
 			parseParallel(parsedInputString, &commands, numCommands);
+			if (commands[0] == NULL)
+				continue;
 
 			for (int i = 0; i < numCommands; i++)
 			{
 				char *commandAndRedirectPath = commands[i];
+				// call fork then exec
 
 				char *command = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
 				char *redirectPath = (char *)malloc(sizeof(char) * MAX_INPUT_CHAR);
