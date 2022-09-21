@@ -104,7 +104,8 @@ int main(int argc, char **argv)
 
 				if (buildInExitCode == -1)
 				{
-					executeCommand(programPath, parsedInputString, redirectPath);
+					// executeCommand(programPath, command, redirectPath);
+					executeCommand(programPath, command, redirectPath);
 				}
 				else if (buildInExitCode == 1)
 				{
@@ -186,7 +187,7 @@ int main(int argc, char **argv)
 
 				if (buildInExitCode == -1)
 				{
-					executeCommand(programPath, parsedInputString, redirectPath);
+					executeCommand(programPath, command, redirectPath);
 				}
 				else if (buildInExitCode)
 				{

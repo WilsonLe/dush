@@ -70,7 +70,7 @@ void parseRedirection(char *parsedInputString, char **command, char **redirectPa
 				(*numOutputSpaces)++;
 			}
 		}
-		if (numOutputSpaces == 0)
+		if (*numOutputSpaces == 0)
 		{
 			strcpy(*redirectPath, _trimmedRedirectPath);
 		}

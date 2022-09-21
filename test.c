@@ -6,19 +6,19 @@
 #include <sys/wait.h>
 
 int main(int argc, char** argv){
-    // pid_t pid = fork();
-    // char* arg[] = { "ls", "-a", "-C", ">", NULL };
-    // char s[100];
+    pid_t pid = fork();
+    char* arg[] = { "ls", "-a", "-C", ">", NULL };
+    char s[100];
 
-    // if (pid == -1)
-    //     perror("fork error");
-    // else if (pid == 0) {
-    //     // printf("%s\n", getcwd(s, 100));
-    //     execv("/bin/ls", arg);
-    //     // printf("%s\n", getcwd(s, 100));
-    // } else {
-    //     wait(NULL);
-    // }
+    if (pid == -1)
+        perror("fork error");
+    else if (pid == 0) {
+        // printf("%s\n", getcwd(s, 100));
+        execv("/bin/ls", arg);
+        // printf("%s\n", getcwd(s, 100));
+    } else {
+        wait(NULL);
+    }
 
 
     // char* stri = strdup("abc edef ghi");
@@ -84,23 +84,23 @@ int main(int argc, char** argv){
     //     free(args);
     // }
 
-    if (argc == 2){
-        char* filename = argv[1];
-        FILE* fp;
-        char* line = NULL;
-        size_t len = 0;
-        size_t read;
+    // if (argc == 2){
+    //     char* filename = argv[1];
+    //     FILE* fp;
+    //     char* line = NULL;
+    //     size_t len = 0;
+    //     size_t read;
 
 
-        fp = fopen(filename, "r");
-        while ((read = getline(&line, &len, fp)) != -1) {
-            printf("Retrieved line of length %d:\n", (int)read);
-            line[(int)read-1] = '\0';
-            // printf("%s", line);
-            // execute on each line
-        }
-        fclose(fp);
-    }
+    //     fp = fopen(filename, "r");
+    //     while ((read = getline(&line, &len, fp)) != -1) {
+    //         printf("Retrieved line of length %d:\n", (int)read);
+    //         line[(int)read-1] = '\0';
+    //         // printf("%s", line);
+    //         // execute on each line
+    //     }
+    //     fclose(fp);
+    // }
 
     return 0;
 }

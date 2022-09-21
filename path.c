@@ -6,7 +6,9 @@ char *parsePath(char **path, char *programWithArgs, int numPath, const int MAX_P
 {
 	char *programPath = NULL;
 
-	char *program = strtok(programWithArgs, " ");
+	char *_programWithArgs = strdup(programWithArgs);
+
+	char *program = strtok(_programWithArgs, " ");
 
 	if (strcmp(program, "cd") == 0 || strcmp(program, "exit") == 0 || strcmp(program, "path") == 0)
 	{
