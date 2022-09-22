@@ -1,3 +1,9 @@
+/*
+* This project is to create a simple Unix shell.
+* Name: Khoi Le and Wilson Le
+* Date: 9/14/2022
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

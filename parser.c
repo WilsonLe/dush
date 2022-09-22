@@ -1,3 +1,9 @@
+/*
+* This file is to define functions to process the input of the users into correct format.
+* Name: Khoi Le and Wilson Le
+* Date: 9/14/2022
+*/
+
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>

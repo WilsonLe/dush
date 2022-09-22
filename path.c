@@ -1,3 +1,9 @@
+/*
+* This file is to define a function to generate the full path of the command.
+* Name: Khoi Le and Wilson Le
+* Date: 9/14/2022
+*/
+
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>

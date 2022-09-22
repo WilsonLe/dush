@@ -1,3 +1,9 @@
+/*
+* This file is to define functions to initiate the program.
+* Name: Khoi Le and Wilson Le
+* Date: 9/14/2022
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
